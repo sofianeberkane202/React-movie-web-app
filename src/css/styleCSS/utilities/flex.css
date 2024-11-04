@@ -3,7 +3,7 @@
     gap: var(--gap);
 }
 
-.felx-col{flex-direction: column;}
+.flex-col{flex-direction: column;}
 .flex-center-y{align-items: center;}
 .flex-center-x{justify-content: center;}
 .flex-between{justify-content: space-between;}
