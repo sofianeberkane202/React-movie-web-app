@@ -21,3 +21,9 @@
     font-weight: var(--fw-normal);
     line-height: 1.2;
 }
+
+.text-list{
+    font-size: var(--fs-list);
+    font-weight: var(--fw-normal);
+    line-height: 1.2;
+}

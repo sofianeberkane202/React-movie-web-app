@@ -1,0 +1,75 @@
+.main-content{
+    height: calc(100vh - 100px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.main-content .container{
+    height: 95%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 24px;
+}
+
+.box-movies{
+    background-color: var(--color-background-500);
+    border-radius: var(--radius-12);
+    position: relative;
+    overflow-y: auto;
+    padding-block: 4px;
+}
+
+.box-movies li{
+    padding: 20px 24px;
+}
+
+.box-movies li:not(:last-child){
+    border-block-end: 1px solid var(--color-background-100);
+}
+
+.controler{
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--color-text);
+    background-color: var(--color-background-900);
+    border-radius: var(--radius-circle);
+    font-weight: var(--fw-bold);
+    font-size: 20px;
+    z-index: 10;
+}
+
+.stats{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 126px;
+    padding: 0 24px;
+    background-color: var(--color-background-100);
+}
+
+.stats > h3{
+    text-transform: uppercase;
+}
+
+.box-movies:nth-of-type(2) > ul{
+    margin-block-start: 130px;
+}
+
+.delete-btn{
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;   
+}
+
+.delete-btn span{
+    background-color: red;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-circle);
+}

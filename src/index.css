@@ -10,6 +10,7 @@
 
 /* componentCSS */
 @import url('./css/componentCSS/Header.css');
+@import url('./css/componentCSS/Main.css');
 
 html{
   font-size: 10px;
