@@ -1,0 +1,23 @@
+.text-header{
+    font-size: var(--fs-header);
+    font-weight: var(--fw-bold);
+    line-height: 1.2;
+}
+
+.text-btn{
+    font-size: var(--fs-btn);
+    font-weight: var(--fw-semibold);
+    line-height: 1.2;
+}
+
+.text-field{
+    font-size: var(--fs-field);
+    font-weight: var(--fw-normal);
+    line-height: 1.2;
+}
+
+.text-base{
+    font-size: var(--fs-base);
+    font-weight: var(--fw-normal);
+    line-height: 1.2;
+}

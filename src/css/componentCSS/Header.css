@@ -1,0 +1,23 @@
+.header{
+    background-color: var(--color-primary);
+    width: 100%;
+    height: 80px;
+    color: var(--color-text);
+}
+
+.search-field{
+    height: 54px;
+    padding-inline: 8px;
+    background-color: var(--color-primary-light);
+    color: #fff;
+    border-radius: var(--radius-);
+}
+
+.search-field::placeholder{
+    color: #fff;
+}
+
+.count-movies, .logo{
+    width: 220px;
+    text-align: center;
+}

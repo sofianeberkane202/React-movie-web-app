@@ -1,0 +1,25 @@
+*,*::after,*::before{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+button,span,img,input{display: block;}
+
+button,input{
+    background-color: transparent;
+    font: inherit;
+    border: none;
+}
+
+button{cursor: pointer;}
+
+li{list-style: none;}
+
+a{text-decoration: none;}
+
+img{
+    height: auto;
+}
+
+
