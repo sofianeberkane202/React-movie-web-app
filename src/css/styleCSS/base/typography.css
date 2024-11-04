@@ -12,7 +12,7 @@
 
 .text-field{
     font-size: var(--fs-field);
-    font-weight: var(--fw-normal);
+    font-weight: var(--fw-semibold);
     line-height: 1.2;
 }
 

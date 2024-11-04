@@ -10,17 +10,22 @@ export default function Header(){
 
                 {/* search field */}
 
-                <div className="box-search-field">
+                <div className="box-search-field flex-1">
+                    
+
                     <input 
-                    className='search-field text-field flex-1'
+                    className='search-field text-field'
                     type='text'
                     placeholder='Search movies...'/>
+
+                    
+
                 </div>
                 
 
                 {/* count result */}
     
-                <p className="count-movies text-field">Found 20 results</p>
+                <p className="count-movies text-field">Found <span className='counter'>20</span> results</p>
 
             </div>
             

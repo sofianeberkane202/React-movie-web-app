@@ -1,23 +1,33 @@
 .header{
     background-color: var(--color-primary);
-    width: 100%;
-    height: 80px;
+    width: 98%;
+    height: 100px;
     color: var(--color-text);
+    border-radius: var(--radius-8);
+    margin-top: 8px;
+    margin-inline: auto;
+    position: relative;
 }
 
+
+
 .search-field{
-    height: 54px;
-    padding-inline: 8px;
+    height: 64px;
+    max-width: 500px;
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 12px;
     background-color: var(--color-primary-light);
-    color: #fff;
-    border-radius: var(--radius-);
+    color: inherit;
+    border-radius: var(--radius-4);  
 }
 
 .search-field::placeholder{
-    color: #fff;
+    color: inherit;
 }
 
-.count-movies, .logo{
-    width: 220px;
-    text-align: center;
+.counter{
+    display: inline;
+    font-size: 2.2rem;
+    font-weight: var(--fw-bold);
 }

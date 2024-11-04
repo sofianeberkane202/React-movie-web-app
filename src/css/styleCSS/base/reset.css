@@ -22,4 +22,7 @@ img{
     height: auto;
 }
 
+input:focus{
+    outline: none;
+}
 
