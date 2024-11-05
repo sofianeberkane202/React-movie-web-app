@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
-
+import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -50,7 +50,7 @@ const tempWatchedData = [
   },
 ];
 
-import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
+
 export default function App(){
 
   // Pagination component
