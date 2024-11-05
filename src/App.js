@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Header from "./components/Header"
 import Main from "./components/Main"
-import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
+import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem,
+  MovieDetails, MovieBox } from "./components/Main";
 
 const tempMovieData = [
   {
@@ -62,30 +63,44 @@ export default function App(){
     <Header/>
     
     <Main>
+
       <Box>
 
           <PaginationControler isOpen={isOpen1} onIsOpen={setIsOpen1}/>
 
-          { isOpen1 &&
-            tempMovieData.map((movie,i) => 
-            <MovieItem 
-            key={`movie${i}`} 
-            movie={movie}
-            />)
-          }
-        
+          <MovieBox>
+
+            { isOpen1 &&
+              tempMovieData.map((movie,i) => 
+              <MovieItem 
+              key={`movie${i}`} 
+              movie={movie}
+              />)
+            }
+
+          </MovieBox>
+   
       </Box>
 
       <Box>
+        
+        {/* <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
+        <SummaryWachedMoviesList/>
 
-          <SummaryWachedMoviesList/>
-          <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
+        <MovieBox> 
 
           { isOpen2 &&
             tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
           }
+        </MovieBox> */}
+
+          
+
+          <MovieDetails/>
+
         
       </Box>
+
     </Main>
     </>
   )

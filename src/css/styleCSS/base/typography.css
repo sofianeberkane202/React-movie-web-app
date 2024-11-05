@@ -28,6 +28,12 @@
     line-height: 1.2;
 }
 
+.text-title{
+    font-size: var(--fs-title);
+    font-weight: var(--fw-normal);
+    line-height: 1.2;
+}
+
 .text-list{
     font-size: var(--fs-list);
     font-weight: var(--fw-normal);

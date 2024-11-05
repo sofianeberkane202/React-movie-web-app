@@ -16,10 +16,18 @@ export function Box({children}){
 
     return (
         <div className='box-movies'>
-            <ul>
+            
                 {children}
-            </ul>
+            
         </div>
+    )
+}
+
+export function MovieBox({children}){
+    return (
+        <ul>
+            {children}
+        </ul>
     )
 }
 
@@ -116,4 +124,57 @@ export function SummaryWachedMoviesList(){
 
 function DeleteBtn(){
     return <button className="delete-btn"><span>x</span></button>
+}
+
+// ----------------------
+
+const movie = {
+    "Title": "Barry",
+    "Year": "2018–2023",
+    "Rated": "TV-MA",
+    "Released": "25 Mar 2018",
+    "Runtime": "2 min",
+    "Genre": "Action, Comedy, Crime",
+    "Director": "N/A",
+    "Writer": "Alec Berg, Bill Hader",
+    "Actors": "Bill Hader, Stephen Root, Sarah Goldberg",
+    "Plot": "A hit man from the Midwest moves to Los Angeles and gets caught up in the city's theatre arts scene.",
+    "Language": "English",
+    "Country": "United States",
+    "Awards": "Won 10 Primetime Emmys. 57 wins & 228 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BYzdlYWZkNjQtMWYwNi00YjNkLTljYjgtZjRhMmQ2YTQ1MWQ0XkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "8.3/10"
+        }
+    ],
+    "Metascore": "N/A",
+    "imdbRating": "8.3",
+    "imdbVotes": "127,612",
+    "imdbID": "tt5348176",
+    "Type": "series",
+    "totalSeasons": "4",
+    "Response": "True"
+}
+
+export function MovieDetails(){
+    return (
+        <div className="box-details flex " style={{gap:"24px"}}>
+            <div className="movie-image" 
+            style={{width: "120px"}}>
+                <img 
+                src={movie.Poster} 
+                alt={movie.Title}
+                style={{width:"100%"}}
+                />
+            </div>
+
+            <div className="movie-info flex flex-col mt-16">
+                <p className="text-title">{movie.Title}</p>
+                <p className="date">{movie.Released}</p>
+                <p>⭐️ {Number(movie.imdbRating).toFixed(1)} Average Rating</p>
+            </div>
+        </div>
+    )
 }

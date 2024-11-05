@@ -93,3 +93,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.box-details{
+    background-color: var(--color-background-100);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
