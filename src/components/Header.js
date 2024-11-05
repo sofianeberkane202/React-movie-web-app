@@ -34,8 +34,10 @@ export function SearchField({onQuery}){
     )
 }
 
-export function NumberMoviesFound(){
+export function NumberMoviesFound({numberOfMoviesFeched}){
     return(
-        <p className="count-movies text-field">Found <span className='counter'>20</span> results</p> 
+        <p className="count-movies text-field">
+            Found <span className='counter'>{numberOfMoviesFeched}</span> results
+        </p> 
     )
 }

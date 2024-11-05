@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
 import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
-import { KEY } from "./api";
+import { KEY,URLByID,URLBySearch } from "./api";
 import { fetchData } from "./helper";
 
 const tempMovieData = [
@@ -55,6 +55,8 @@ const tempWatchedData = [
 
 
 export default function App(){
+  
+  const [movies, setMovies]= useState([]); 
 
   // Pagination component
   const [isOpen1, setIsOpen1]= useState(true); 
@@ -62,6 +64,32 @@ export default function App(){
 
   // SearchField component
   const [query, setQuery]= useState(""); 
+
+  // useEffects -------------------
+  // fetching movies Data------
+
+  useEffect(function(){
+    async function fetchingData(){
+      try {
+        if(query.length < 3) return;
+
+        const URL = URLBySearch + query;
+        const data = await fetchData(URL);
+        console.log(data);
+
+        setMovies(data.Search);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchingData();
+  },[query]);
+
+  // ----------------
+
+
+
+  // -------------------------------
   
 
   return (
@@ -71,7 +99,7 @@ export default function App(){
         <SearchField onQuery={setQuery}/>
       </SearchBox>
 
-      <NumberMoviesFound/>
+      <NumberMoviesFound numberOfMoviesFeched={movies.length}/>
     </Header>
     
     <Main>
@@ -80,7 +108,7 @@ export default function App(){
           <PaginationControler isOpen={isOpen1} onIsOpen={setIsOpen1}/>
 
           { isOpen1 &&
-            tempMovieData.map((movie,i) => 
+            movies.map((movie,i) => 
             <MovieItem 
             key={`movie${i}`} 
             movie={movie}
