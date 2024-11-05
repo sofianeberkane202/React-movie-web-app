@@ -3,6 +3,8 @@ import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
 import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
+import { KEY } from "./api";
+import { fetchData } from "./helper";
 
 const tempMovieData = [
   {
