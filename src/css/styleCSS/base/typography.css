@@ -10,6 +10,12 @@
     line-height: 1.2;
 }
 
+.text-rate{
+    font-size: var(--fs-rate);
+    font-weight: var(--fw-semibold);
+    line-height: 1.2;
+}
+
 .text-field{
     font-size: var(--fs-field);
     font-weight: var(--fw-semibold);
