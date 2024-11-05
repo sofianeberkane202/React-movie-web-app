@@ -49,7 +49,12 @@ const tempWatchedData = [
 ];
 
 export default function App(){
-  return <Main movie={tempMovieData[0]}/>
+  return (
+    <>
+    <Header/>
+    <Main movie={tempMovieData[0]}/>
+    </>
+  )
 }
 
 
