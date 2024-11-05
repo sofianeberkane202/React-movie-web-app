@@ -1,5 +1,6 @@
 import Header from "./components/Header"
 import Main from "./components/Main"
+import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
 
 const tempMovieData = [
   {
@@ -52,7 +53,29 @@ export default function App(){
   return (
     <>
     <Header/>
-    <Main movie={tempMovieData[0]}/>
+    
+    <Main>
+      <Box>
+
+          <PaginationControler/>
+
+          {
+            tempMovieData.map((movie,i) => <MovieItem key={`movie${i}`} movie={movie}/>)
+          }
+        
+      </Box>
+
+      <Box>
+
+          <SummaryWachedMoviesList/>
+          <PaginationControler/>
+
+          {
+            tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
+          }
+        
+      </Box>
+    </Main>
     </>
   )
 }
