@@ -1,10 +1,10 @@
 .header{
     background-color: var(--color-primary);
     width: 98%;
-    height: 100px;
+    height: 70px;
     color: var(--color-text);
     border-radius: var(--radius-8);
-    margin-top: 8px;
+    margin-top: 12px;
     margin-inline: auto;
     position: relative;
 }
@@ -12,8 +12,8 @@
 
 
 .search-field{
-    height: 64px;
-    max-width: 500px;
+    height: 48px;
+    max-width: 400px;
     width: 100%;
     margin-inline: auto;
     padding-inline: 12px;
@@ -23,11 +23,11 @@
 }
 
 .search-field::placeholder{
-    color: inherit;
+    color: var(--color-text-dark);
 }
 
 .counter{
     display: inline;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: var(--fw-bold);
 }
