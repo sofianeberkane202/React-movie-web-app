@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
@@ -50,6 +51,12 @@ const tempWatchedData = [
 ];
 
 export default function App(){
+
+  // Pagination component
+  const [isOpen1, setIsOpen1]= useState(true); 
+  const [isOpen2, setIsOpen2]= useState(true);
+  
+
   return (
     <>
     <Header/>
@@ -57,10 +64,14 @@ export default function App(){
     <Main>
       <Box>
 
-          <PaginationControler/>
+          <PaginationControler isOpen={isOpen1} onIsOpen={setIsOpen1}/>
 
-          {
-            tempMovieData.map((movie,i) => <MovieItem key={`movie${i}`} movie={movie}/>)
+          { isOpen1 &&
+            tempMovieData.map((movie,i) => 
+            <MovieItem 
+            key={`movie${i}`} 
+            movie={movie}
+            />)
           }
         
       </Box>
@@ -68,9 +79,9 @@ export default function App(){
       <Box>
 
           <SummaryWachedMoviesList/>
-          <PaginationControler/>
+          <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
 
-          {
+          { isOpen2 &&
             tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
           }
         

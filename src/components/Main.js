@@ -70,8 +70,15 @@ export function WatchedMovieItem({movie}){
     )
 }
 
-export function PaginationControler(){
-    return <button className='controler flex flex-center-y flex-center-x'>-</button>
+export function PaginationControler({isOpen,onIsOpen}){
+    return (
+    <button 
+    className='controler flex flex-center-y flex-center-x'
+    onClick={() => onIsOpen(!isOpen)}
+    >
+        {isOpen ? "-" : "+"}
+    </button>
+    )
 }
 
 export function SummaryWachedMoviesList(){
