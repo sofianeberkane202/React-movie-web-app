@@ -19,6 +19,7 @@ html{
 
 body{
   height: 100vh;
+  overflow: hidden;
   font-family: var(--ff-primary);
   font-size: var(--fs-base);
   font-weight: var(--fw-normal);
