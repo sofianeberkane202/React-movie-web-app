@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem } from "./components/Main";
 import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
+
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -56,14 +57,18 @@ export default function App(){
   // Pagination component
   const [isOpen1, setIsOpen1]= useState(true); 
   const [isOpen2, setIsOpen2]= useState(true);
+
+  // SearchField component
+  const [query, setQuery]= useState(""); 
   
 
   return (
     <>
     <Header>
       <SearchBox>
-        <SearchField/>
+        <SearchField onQuery={setQuery}/>
       </SearchBox>
+
       <NumberMoviesFound/>
     </Header>
     

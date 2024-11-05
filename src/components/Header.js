@@ -23,12 +23,14 @@ export function SearchBox({children}){
     )
 }
 
-export function SearchField(){
+export function SearchField({onQuery}){
     return (
         <input 
         className='search-field text-field'
         type='text'
-        placeholder='Search movies...'/>
+        placeholder='Search movies...'
+        onChange={(e) => onQuery(e.target.value)}
+        />
     )
 }
 
