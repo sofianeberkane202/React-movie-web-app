@@ -48,12 +48,15 @@ const tempWatchedData = [
   },
 ];
 
+import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
 export default function App(){
   return (
-    <>
-    <Header/>
-    <Main movie={tempMovieData[0]}/>
-    </>
+    <Header>
+      <SearchBox>
+        <SearchField/>
+      </SearchBox>
+      <NumberMoviesFound/>
+    </Header>
   )
 }
 

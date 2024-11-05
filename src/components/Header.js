@@ -1,5 +1,5 @@
 import '../css/componentCSS/Header.css'
-export default function Header(){
+export default function Header({children}){
     return (
         <header className="header">
             <div className="container flex flex-center-y flex-between">
@@ -8,27 +8,32 @@ export default function Header(){
                     <span className="text-header">🍿 usePopcorn</span>
                 </div>
 
-                {/* search field */}
-
-                <div className="box-search-field flex-1">
-                    
-
-                    <input 
-                    className='search-field text-field'
-                    type='text'
-                    placeholder='Search movies...'/>
-
-                    
-
-                </div>
-                
-
-                {/* count result */}
-    
-                <p className="count-movies text-field">Found <span className='counter'>20</span> results</p>
+                {children}
 
             </div>
             
         </header>
+    )
+}
+
+
+export function SearchBox({children}){
+    return (
+        <div className="box-search-field flex-1">{children}</div>
+    )
+}
+
+export function SearchField(){
+    return (
+        <input 
+        className='search-field text-field'
+        type='text'
+        placeholder='Search movies...'/>
+    )
+}
+
+export function NumberMoviesFound(){
+    return(
+        <p className="count-movies text-field">Found <span className='counter'>20</span> results</p> 
     )
 }
