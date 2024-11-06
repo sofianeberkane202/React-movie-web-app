@@ -100,8 +100,9 @@ export default function App(){
   const [query, setQuery]= useState(""); 
 
   // Movie Details compoent
-  const [movie,setMovie] = useState([]);
+  const [movieDetails,setMovieDetails] = useState(movieData);
   const [rate,setRate] = useState(0);
+  const [movieID,setMovieID]= useState('');
 
   // useEffects -------------------
   // fetching movies Data------
@@ -124,6 +125,22 @@ export default function App(){
   },[query]);
 
   // ----------------
+
+  // fetching a movie Data
+  useEffect(function(){
+    async function fetchMovieData(){
+      try {
+        const url = URLByID + movieID;
+        const data = await fetchData(url);
+        
+        setMovieDetails(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchMovieData();
+  },[movieID])
 
 
 
@@ -149,10 +166,11 @@ export default function App(){
           <MovieBox>
 
             { isOpen1 &&
-              tempMovieData.map((movie,i) => 
+              movies.map((movie,i) => 
               <MovieItem 
               key={`movie${i}`} 
               movie={movie}
+              onMovieID={setMovieID}
               />)
             }
 
@@ -164,7 +182,7 @@ export default function App(){
 
       <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
 
-      { movie.length === 0 ?        
+      { movieDetails.length === 0 ?        
         <>
           <SummaryWachedMoviesList/>
 
@@ -183,13 +201,13 @@ export default function App(){
 
             <MainMovieDetails>
 
-              <Poster poster={movie.Poster} alt={movie.Title}/>
+              <Poster poster={movieDetails.Poster} alt={movieDetails.Title}/>
 
               <MainMovieInfo 
-              Released={movie.Released}
-              Title={movie.Title}
-              imdbRating={movie.imdbRating}
-              key={movie.Title}
+              Released={movieDetails.Released}
+              Title={movieDetails.Title}
+              imdbRating={movieDetails.imdbRating}
+              key={movieDetails.Title}
               />
 
             </MainMovieDetails>
@@ -208,7 +226,7 @@ export default function App(){
                     rate={rate}
                     />
               
-              <MovieStory Plot={movie.Plot}/>
+              <MovieStory Plot={movieDetails.Plot}/>
 
               <DetailsBtn/>
             </Details>

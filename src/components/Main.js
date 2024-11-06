@@ -1,6 +1,4 @@
 
-import { useState } from "react"
-import StarRating from "./StarRating"
 export default function Main({children}){
 
     return (
@@ -33,9 +31,13 @@ export function MovieBox({children}){
     )
 }
 
-export function MovieItem({movie}){
+export function MovieItem({movie,onMovieID}){
     return (
-        <li className='flex flex-center-y' style={{gap:'1.6rem'}}>
+        <li 
+        className='flex flex-center-y' 
+        style={{gap:'1.6rem'}}
+        onClick={() => onMovieID(movie.imdbID)}
+        >
             <img src={movie.Poster} className="img-sm" alt={movie.Title}/>
             <div className='movie-info flex flex-col'>
                 <p className='title text-list'>{movie.Title}</p>
