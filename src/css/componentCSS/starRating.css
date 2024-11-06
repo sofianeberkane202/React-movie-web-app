@@ -7,10 +7,12 @@
 
 .text{
     margin-left: 16px;
+    width: 24px;
 }
 
 .star{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
 }
