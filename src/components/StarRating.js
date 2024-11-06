@@ -22,39 +22,55 @@ export default function StarRating({
 
     return (
         
-            <div 
-            className={`flex flex-center-y ${boxClassName}`}
-            style={{gap: '0px'}}
+             <>
 
-            onMouseLeave={() => setFillStar(rate)}
-            >    
+                <div 
+                className={`flex flex-center-y ${boxClassName}`}
+                style={{gap: '0px'}}
 
-                {
-                    Array.from({length:maxRate}, (_,i) => i).
-                    map(i => {
-                        return (
-                            <Star
-                            key={`star${i}`}
-                            style={starStyle}
-                            starClassName={starClassName}
-                            color={color}
-                            id={i+1}
-                            onFillStar={setFillStar}
-                            fillStar={fillStar}
-                            onRate={onRate}
-                            />
-                        )
-                    }) 
-                }
-                                
-                <p 
-                className={textClassName}
-                style={{color:color}}
-                >
-                    {fillStar ? <span>{fillStar}</span> : ''}
-                </p>
-            </div>
+                onMouseLeave={() => setFillStar(rate)}
+                >    
+                    { rate === 0 &&
+                        <> 
+                       
+                            {
+                                Array.from({length:maxRate}, (_,i) => i).
+                                map(i => {
+                                    return (
+                                        <Star
+                                        key={`star${i}`}
+                                        style={starStyle}
+                                        starClassName={starClassName}
+                                        color={color}
+                                        id={i+1}
+                                        onFillStar={setFillStar}
+                                        fillStar={fillStar}
+                                        onRate={onRate}
+                                        />
+                                    )
+                                }) 
+                            }
+                                            
+                            <p 
+                            className={textClassName}
+                            style={{color:color}}
+                            >
+                                {fillStar ? <span>{fillStar}</span> : ''}
+                            </p>
 
+                        </>
+                    }
+
+                    { rate > 0 &&
+                        <p className="text-btn">
+                            Yuo have rated the movie {rate} ⭐️
+                        </p>
+                    }    
+                </div>
+            
+            
+                
+            </>
             
         
     )

@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header"
 import Main from "./components/Main"
 import { Box, SummaryWachedMoviesList,MovieItem,PaginationControler,WatchedMovieItem,
-  MovieDetails, MovieBox } from "./components/Main";
+   MovieBox } from "./components/Main";
 import { fetchData } from "./helper";
 import {URLByID,URLBySearch } from "./api";
 import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
+
+import { MovieDetails,Details,MainMovieDetails,MovieStory,Poster,MainMovieInfo,DetailsBtn } from "./components/MovieDetails";
+
+import StarRating from "./components/StarRating";
 
 const tempMovieData = [
   {
@@ -54,6 +58,35 @@ const tempWatchedData = [
   },
 ];
 
+const movieData = {
+  "Title": "Barry",
+  "Year": "2018–2023",
+  "Rated": "TV-MA",
+  "Released": "25 Mar 2018",
+  "Runtime": "2 min",
+  "Genre": "Action, Comedy, Crime",
+  "Director": "N/A",
+  "Writer": "Alec Berg, Bill Hader",
+  "Actors": "Bill Hader, Stephen Root, Sarah Goldberg",
+  "Plot": "A hit man from the Midwest moves to Los Angeles and gets caught up in the city's theatre arts scene.",
+  "Language": "English",
+  "Country": "United States",
+  "Awards": "Won 10 Primetime Emmys. 57 wins & 228 nominations total",
+  "Poster": "https://m.media-amazon.com/images/M/MV5BYzdlYWZkNjQtMWYwNi00YjNkLTljYjgtZjRhMmQ2YTQ1MWQ0XkEyXkFqcGc@._V1_SX300.jpg",
+  "Ratings": [
+      {
+          "Source": "Internet Movie Database",
+          "Value": "8.3/10"
+      }
+  ],
+  "Metascore": "N/A",
+  "imdbRating": "8.3",
+  "imdbVotes": "127,612",
+  "imdbID": "tt5348176",
+  "Type": "series",
+  "totalSeasons": "4",
+  "Response": "True"
+}
 
 export default function App(){
   
@@ -65,6 +98,10 @@ export default function App(){
 
   // SearchField component
   const [query, setQuery]= useState(""); 
+
+  // Movie Details compoent
+  const [movie,setMovie] = useState([]);
+  const [rate,setRate] = useState(0);
 
   // useEffects -------------------
   // fetching movies Data------
@@ -124,20 +161,61 @@ export default function App(){
       </Box>
 
       <Box>
+
       <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
-        {/* 
-        <SummaryWachedMoviesList/>
 
-        <MovieBox> 
+      { movie.length === 0 ?        
+        <>
+          <SummaryWachedMoviesList/>
 
-          { isOpen2 &&
-            tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
-          }
-        </MovieBox> */}
+          <MovieBox> 
 
+            { isOpen2 &&
+              tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
+            }
+          </MovieBox>
+        </>
+
+        :
           
+          isOpen2 &&
+          <MovieDetails>
 
-          <MovieDetails/>
+            <MainMovieDetails>
+
+              <Poster poster={movie.Poster} alt={movie.Title}/>
+
+              <MainMovieInfo 
+              Released={movie.Released}
+              Title={movie.Title}
+              imdbRating={movie.imdbRating}
+              key={movie.Title}
+              />
+
+            </MainMovieDetails>
+
+            <Details>
+              <StarRating
+                    maxRate={10}
+                    size={22}
+                    color='#fcc419'
+                    starClassName=''
+                    boxClassName='starRating mt-24 mb-16'
+            
+                    textClassName='text text-btn'
+
+                    onRate={setRate}
+                    rate={rate}
+                    />
+              
+              <MovieStory Plot={movie.Plot}/>
+
+              <DetailsBtn/>
+            </Details>
+
+          </MovieDetails>
+          
+        }
 
         
       </Box>
