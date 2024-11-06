@@ -12,6 +12,9 @@
 @import url('./css/componentCSS/Header.css');
 @import url('./css/componentCSS/Main.css');
 
+/* starRating */
+@import url('./css/componentCSS/starRating.css');
+
 html{
   font-size: 10px;
   scroll-behavior: smooth;
