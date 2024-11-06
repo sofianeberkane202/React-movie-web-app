@@ -25,7 +25,7 @@
 .text-base{
     font-size: var(--fs-base);
     font-weight: var(--fw-normal);
-    line-height: 1.2;
+    line-height: 1.5;
 }
 
 .text-title{

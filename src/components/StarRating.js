@@ -67,12 +67,13 @@ function Star({style,starClassName,color,id,onFillStar,fillStar,onRate}){
     return(
         <span 
             className={`star ${starClassName}`} 
-            style={style}
+            
             
             onMouseEnter={() => {onFillStar(id)}}
             onClick={() => onRate(fillStar)}
             > 
                 <svg 
+                style={style}
                 xmlns="http://www.w3.org/2000/svg" 
                 fill={ fillStar>=id ? color :"none"} viewBox="0 0 24 24" 
                 stroke={color}

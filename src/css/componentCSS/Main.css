@@ -19,6 +19,9 @@
     border-radius: var(--radius-12);
     position: relative;
     overflow-y: auto;
+}
+
+.box-movies:nth-of-type(1){
     padding-block: 4px;
 }
 
@@ -97,7 +100,26 @@
 .box-details{
     background-color: var(--color-background-100);
     width: 100%;
+}
+
+.details{
+    height: calc(100% - 222px - 24px);
+    padding-inline: 42px;
+}
+
+.return-btn{
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 16px;
+    left: 16px;
+}
+
+.return-btn svg{
+    background-color: #fff;
+    border-radius: var(--radius-circle);
+    transition: .5s;
+}
+
+.return-btn:is(:hover,:focus-visible) svg{
+    background-color: var(--color-primary);
+    fill: #fff;
 }

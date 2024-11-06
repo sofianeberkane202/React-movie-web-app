@@ -1,4 +1,6 @@
 
+import { useState } from "react"
+import StarRating from "./StarRating"
 export default function Main({children}){
 
     return (
@@ -159,22 +161,57 @@ const movie = {
 }
 
 export function MovieDetails(){
+    const [rate,setRate] = useState(0);
     return (
-        <div className="box-details flex " style={{gap:"24px"}}>
-            <div className="movie-image" 
-            style={{width: "120px"}}>
-                <img 
-                src={movie.Poster} 
-                alt={movie.Title}
-                style={{width:"100%"}}
-                />
+        <>
+            <div className="box-details flex " style={{gap:"24px"}}>
+                <div className="movie-image" 
+                style={{width: "150px"}}>
+                    <img 
+                    src={movie.Poster} 
+                    alt={movie.Title}
+                    style={{width:"100%"}}
+                    />
+                </div>
+
+                <div className="movie-info flex flex-col flex-1 mt-16">
+                    <p className="text-title">{movie.Title}</p>
+                    <p className="date">{movie.Released}</p>
+                    <p>⭐️ {Number(movie.imdbRating).toFixed(1)} Average Rating</p>
+                </div>
             </div>
 
-            <div className="movie-info flex flex-col mt-16">
-                <p className="text-title">{movie.Title}</p>
-                <p className="date">{movie.Released}</p>
-                <p>⭐️ {Number(movie.imdbRating).toFixed(1)} Average Rating</p>
+            <div className="details">
+
+                <StarRating
+                maxRate={10}
+                size={22}
+                color='#fcc419'
+                starClassName=''
+                boxClassName='starRating mt-24 mb-16'
+        
+                textClassName='text text-btn'
+
+                onRate={setRate}
+                rate={rate}
+                />
+
+                <p className="text-base" 
+                style={{fontStyle:'italic',width:'95%'}}>
+                    {movie.Plot}
+                </p>
+
+                <button className="btn btn-primary text-btn">Details</button>
+            
             </div>
-        </div>
+
+            <button className="return-btn">
+                <svg 
+                xmlns="http://www.w3.org/2000/svg"
+                height="32px" viewBox="0 -960 960 960"
+                width="32px" fill="#000">
+                    <path d="m480-320 56-56-64-64h168v-80H472l64-64-56-56-160 160 160 160Zm0 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+            </button>
+        </>
     )
 }

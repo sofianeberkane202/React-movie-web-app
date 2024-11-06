@@ -124,8 +124,8 @@ export default function App(){
       </Box>
 
       <Box>
-        
-        {/* <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
+      <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
+        {/* 
         <SummaryWachedMoviesList/>
 
         <MovieBox> 
