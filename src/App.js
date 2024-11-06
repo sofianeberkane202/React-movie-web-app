@@ -7,7 +7,8 @@ import { fetchData } from "./helper";
 import {URLByID,URLBySearch } from "./api";
 import { SearchBox,SearchField,NumberMoviesFound } from "./components/Header"
 
-import { MovieDetails,Details,MainMovieDetails,MovieStory,Poster,MainMovieInfo,DetailsBtn } from "./components/MovieDetails";
+import { MovieDetails,Details,MainMovieDetails,
+  MovieStory,Poster,MainMovieInfo,Btn,StarRatingBox } from "./components/MovieDetails";
 
 import StarRating from "./components/StarRating";
 
@@ -88,6 +89,8 @@ const movieData = {
   "Response": "True"
 }
 
+
+
 export default function App(){
   
   const [movies, setMovies]= useState([]); 
@@ -104,7 +107,34 @@ export default function App(){
   const [rate,setRate] = useState(0);
   const [movieID,setMovieID]= useState('');
 
+  const [ratedMovies,setRatedMovies] = useState(new Map());
+  
+  function handelRatedMovies(){
+    setRatedMovies(prevData => {
+      const newRatedList = new Map(prevData);
+
+      newRatedList.set(movieID,rate);
+    
+      localStorage.setItem('ratedMovies',JSON.stringify(Array.from(newRatedList.entries())));
+
+      return newRatedList;
+    })
+  }
+  
+
+
   // useEffects -------------------
+
+  // initial render
+
+  useEffect(function(){
+    // console.log(new Map(JSON.parse(localStorage.getItem('ratedMovies'))));
+    setRatedMovies(prevData => {
+      if(!localStorage.getItem('ratedMovies')) return new Map();
+      return new Map(JSON.parse(localStorage.getItem('ratedMovies')))
+    })
+  },[])
+
   // fetching movies Data------
 
   useEffect(function(){
@@ -126,14 +156,20 @@ export default function App(){
 
   // ----------------
 
+
+
   // fetching a movie Data
   useEffect(function(){
     async function fetchMovieData(){
       try {
+        if(!movieID) return;
+
         const url = URLByID + movieID;
         const data = await fetchData(url);
         
         setMovieDetails(data);
+        if(ratedMovies.has(movieID)) setRate(ratedMovies.get(movieID))
+        else setRate(0);
       } catch (error) {
         console.error(error);
       }
@@ -141,6 +177,14 @@ export default function App(){
 
     fetchMovieData();
   },[movieID])
+
+  useEffect(function(){
+    if(!rate) return;
+    
+    handelRatedMovies();
+
+
+  },[rate])
 
 
 
@@ -213,22 +257,26 @@ export default function App(){
             </MainMovieDetails>
 
             <Details>
-              <StarRating
+              <StarRatingBox>
+                <StarRating
                     maxRate={10}
                     size={22}
                     color='#fcc419'
                     starClassName=''
-                    boxClassName='starRating mt-24 mb-16'
+                    boxClassName=''
             
                     textClassName='text text-btn'
 
                     onRate={setRate}
                     rate={rate}
                     />
+                    <Btn text='+Add to List'/>
+
+              </StarRatingBox>
               
               <MovieStory Plot={movieDetails.Plot}/>
 
-              <DetailsBtn/>
+              <Btn text='Details'/>
             </Details>
 
           </MovieDetails>

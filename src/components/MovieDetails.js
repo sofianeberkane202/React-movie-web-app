@@ -1,3 +1,5 @@
+import StarRating from "./StarRating"
+
 export function MovieDetails({children}){
     return (
         <>
@@ -41,6 +43,7 @@ export function MainMovieInfo({Title,Released,imdbRating}){
             <p className="text-title">{Title}</p>
             <p className="date">{Released}</p>
             <p>⭐️ {Number(imdbRating).toFixed(1)} Average Rating</p>
+            
         </div>
     )
 }
@@ -63,6 +66,14 @@ export function MovieStory({Plot}){
     )
 }
 
-export function DetailsBtn(){
-    return <button className="btn btn-primary text-btn">Details</button>
+export function Btn({text}){
+    return <button className="btn btn-primary text-btn">{text}</button>
+}
+
+export function StarRatingBox({children}){
+    return (
+        <div className="starRating mt-24 mb-16">
+            {children}
+        </div>
+    )
 }

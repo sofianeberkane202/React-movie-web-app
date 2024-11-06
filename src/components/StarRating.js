@@ -25,10 +25,10 @@ export default function StarRating({
              <>
 
                 <div 
-                className={`flex flex-center-y ${boxClassName}`}
+                className={`flex flex-center-y`}
                 style={{gap: '0px'}}
 
-                onMouseLeave={() => setFillStar(rate)}
+                onMouseLeave={() => setFillStar(0)}
                 >    
                     { rate === 0 &&
                         <> 
@@ -65,7 +65,8 @@ export default function StarRating({
                         <p className="text-btn">
                             Yuo have rated the movie {rate} ⭐️
                         </p>
-                    }    
+                    } 
+                       
                 </div>
             
             
@@ -86,7 +87,7 @@ function Star({style,starClassName,color,id,onFillStar,fillStar,onRate}){
             
             
             onMouseEnter={() => {onFillStar(id)}}
-            onClick={() => onRate(fillStar)}
+            onClick={() => {onRate(fillStar);onFillStar(0)}}
             > 
                 <svg 
                 style={style}
