@@ -1,0 +1,18 @@
+.starRating{
+    width: max-content;
+    background-color: var(--color-background-100);
+    padding: 18px 24px;
+    border-radius: var(--radius-8);
+}
+
+.text{
+    margin-left: 16px;
+    width: 24px;
+}
+
+.star{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
