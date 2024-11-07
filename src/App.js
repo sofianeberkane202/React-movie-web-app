@@ -160,6 +160,12 @@ export default function App(){
   // fetching movies Data------
 
   useEffect(function(){
+    if(query.length < 3){
+      setMovies([]);
+      setIsloading1(false);
+      setError1('');
+      return;
+    }
     async function fetchingData(){
       try {
         setIsloading1(true);
@@ -178,11 +184,6 @@ export default function App(){
         setError1(`${error.message}`);
       }finally{setIsloading1(false);}
 
-      if(query.length < 3){
-        setMovies([]);
-        setIsloading1(false);
-        setError1('');
-      }
     }
     fetchingData();
   },[query]);
