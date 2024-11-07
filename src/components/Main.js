@@ -50,7 +50,7 @@ export function MovieItem({movie,onMovieID}){
     )
 }
 
-export function WatchedMovieItem({movie}){
+export function WatchedMovieItem({movie,ownRating}){
     return (
         <li className='flex flex-center-y' style={{gap:'2.4rem'}}>
             <img src={movie.Poster} className="img-sm" alt={movie.Title} />
@@ -58,20 +58,23 @@ export function WatchedMovieItem({movie}){
                 <p className='title text-list'>{movie.Title}</p>
                 <div className='data flex flex-center-y flex-between '>
 
-                    <div className="flex flex-between flex-center-y flex-1">
-                        <div className='flex flex-center-y text-rate'>
+                    <div className="flex flex-center-y flex-1">
+                        <div className='flex flex-center-y text-rate flex-1'>
                             <span>⭐️</span>
-                            <span >8.70</span>
+                            <span >{movie.imdbRating}</span>
                         </div>
 
-                        <div className='flex flex-center-y text-rate'>
+                        { ownRating &&
+                        <div className='flex flex-center-y text-rate flex-1'>
                             <span>🌟</span>
-                            <span >7.00</span>
-                        </div>
+                            <span >
+                                {ownRating.has(movie.imdbID) ? ownRating.get(movie.imdbID) : 0}
+                            </span>
+                        </div>}
 
-                        <div className='flex flex-center-y text-rate'>
+                        <div className='flex flex-center-y text-rate flex-1'>
                             <span>🕒</span>
-                            <span >142 min</span>
+                            <span >{movie.Runtime}</span>
                         </div>
                     </div>
 

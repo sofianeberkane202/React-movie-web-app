@@ -95,6 +95,10 @@ export default function App(){
   
   const [movies, setMovies]= useState([]); 
 
+  // watched movies component
+  const [watched, setWatched] = useState(new Map());
+  const [isSaved, setIsSaved]= useState(false);
+
   // Pagination component
   const [isOpen1, setIsOpen1]= useState(true); 
   const [isOpen2, setIsOpen2]= useState(true);
@@ -103,11 +107,12 @@ export default function App(){
   const [query, setQuery]= useState(""); 
 
   // Movie Details compoent
-  const [movieDetails,setMovieDetails] = useState(movieData);
+  const [movieDetails,setMovieDetails] = useState([]);
   const [rate,setRate] = useState(0);
   const [movieID,setMovieID]= useState('');
 
   const [ratedMovies,setRatedMovies] = useState(new Map());
+
   
   function handelRatedMovies(){
     setRatedMovies(prevData => {
@@ -128,11 +133,16 @@ export default function App(){
   // initial render
 
   useEffect(function(){
-    // console.log(new Map(JSON.parse(localStorage.getItem('ratedMovies'))));
     setRatedMovies(prevData => {
       if(!localStorage.getItem('ratedMovies')) return new Map();
       return new Map(JSON.parse(localStorage.getItem('ratedMovies')))
     })
+
+    setWatched(prevData => {
+      if(!localStorage.getItem('watchedMovies')) return new Map();
+      return new Map(JSON.parse(localStorage.getItem('watchedMovies')))
+    })
+
   },[])
 
   // fetching movies Data------
@@ -144,7 +154,7 @@ export default function App(){
 
         const URL = URLBySearch + query;
         const data = await fetchData(URL);
-        console.log(data);
+        
 
         setMovies(data.Search);
       } catch (error) {
@@ -155,7 +165,6 @@ export default function App(){
   },[query]);
 
   // ----------------
-
 
 
   // fetching a movie Data
@@ -187,8 +196,29 @@ export default function App(){
   },[rate])
 
 
+  // Save Movie on movie watched list
+  useEffect(function(){
+    if(!isSaved) return;
+    setWatched(prevData => {
+      let newList = new Map();
+      if(prevData.size > 0) newList = structuredClone(prevData);
+      newList.set(movieID,movieDetails);
+      
+
+      localStorage.setItem('watchedMovies',JSON.stringify(Array.from(newList.entries())))
+
+      return newList;
+    })
+
+    setIsSaved(false)
+    
+  },[isSaved])
 
   // -------------------------------
+
+  
+
+
   
 
   return (
@@ -232,8 +262,13 @@ export default function App(){
 
           <MovieBox> 
 
-            { isOpen2 &&
-              tempWatchedData.map((movie,i) => <WatchedMovieItem key={`watchedmovie${i}`} movie={movie}/>)
+            { isOpen2 && watched.size > 0 &&
+              Array.from(watched.values()).map((movie,i) => 
+              <WatchedMovieItem 
+              key={`watchedmovie${i}`} 
+              ownRating={ratedMovies} 
+              movie={movie}
+              />)
             }
           </MovieBox>
         </>
@@ -241,7 +276,7 @@ export default function App(){
         :
           
           isOpen2 &&
-          <MovieDetails>
+          <MovieDetails >
 
             <MainMovieDetails>
 
@@ -258,21 +293,36 @@ export default function App(){
 
             <Details>
               <StarRatingBox>
-                <StarRating
+                { !watched.has(movieID) ?
+                <>
+                    <StarRating
                     maxRate={10}
                     size={22}
                     color='#fcc419'
                     starClassName=''
                     boxClassName=''
-            
+                
                     textClassName='text text-btn'
 
                     onRate={setRate}
                     rate={rate}
+
+                    key={movieID}
                     />
+
                     <Btn 
                     className='btn btn-primary text-btn' 
-                    text='+Add to List'/>
+                    text='+Add to List'
+                    onSaved={setIsSaved}
+                    />
+                </>
+
+                :
+
+                <p className="text-btn">
+                  You have rated the movie {ratedMovies.get(movieID)} ⭐️
+                </p>
+                }
 
               </StarRatingBox>
               

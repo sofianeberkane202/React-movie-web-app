@@ -58,14 +58,19 @@ export function MovieStory({Plot}){
     )
 }
 
-export function Btn({onMovieDetails,onMovieID,text,className,children}){
+export function Btn({onMovieDetails,onMovieID,text,className,onSaved,children}){
     return (
     <button 
     className={className}
     onClick={() => {
         if(onMovieDetails && onMovieID){ ;
         onMovieDetails([]);
-        onMovieID('');}
+        onMovieID('');  
+        }
+
+        if(onSaved){
+            onSaved(true);
+        }
     }}
     >
         {text}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function StarRating({
     maxRate=5,
@@ -13,7 +13,9 @@ export default function StarRating({
 
 }){
 
+
     const [fillStar,setFillStar] = useState(0);
+
 
     const starStyle= {
         width: `${size}px`,
@@ -30,7 +32,7 @@ export default function StarRating({
 
                 onMouseLeave={() => setFillStar(0)}
                 >    
-                    { rate === 0 &&
+                    {
                         <> 
                        
                             {
@@ -46,6 +48,7 @@ export default function StarRating({
                                         onFillStar={setFillStar}
                                         fillStar={fillStar}
                                         onRate={onRate}
+                                        rate={rate}
                                         />
                                     )
                                 }) 
@@ -55,17 +58,13 @@ export default function StarRating({
                             className={textClassName}
                             style={{color:color}}
                             >
-                                {fillStar ? <span>{fillStar}</span> : ''}
+                                {fillStar || rate ? <span>{fillStar || rate}</span> : ''}
                             </p>
 
                         </>
                     }
 
-                    { rate > 0 &&
-                        <p className="text-btn">
-                            Yuo have rated the movie {rate} ⭐️
-                        </p>
-                    } 
+                    
                        
                 </div>
             
@@ -77,7 +76,7 @@ export default function StarRating({
     )
 }
 
-function Star({style,starClassName,color,id,onFillStar,fillStar,onRate}){
+function Star({style,starClassName,color,id,onFillStar,rate,fillStar,onRate}){
 
 
 
@@ -87,12 +86,12 @@ function Star({style,starClassName,color,id,onFillStar,fillStar,onRate}){
             
             
             onMouseEnter={() => {onFillStar(id)}}
-            onClick={() => {onRate(fillStar);onFillStar(0)}}
+            onClick={() => {onRate(fillStar)}}
             > 
                 <svg 
                 style={style}
                 xmlns="http://www.w3.org/2000/svg" 
-                fill={ fillStar>=id ? color :"none"} viewBox="0 0 24 24" 
+                fill={ fillStar>=id || rate>=id ? color :"none"} viewBox="0 0 24 24" 
                 stroke={color}
         
                 >
