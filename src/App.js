@@ -218,7 +218,19 @@ export default function App(){
 
   
 
+  function handelDeleteOnWatchedMovies(id){
 
+    setWatched((prevData) => {
+      const newList = structuredClone(prevData);
+      newList.delete(id);
+
+
+      localStorage.setItem('wachedMovies', JSON.stringify(Array.from(newList.entries())));
+
+      return newList;
+    })
+
+  }
   
 
   return (
@@ -268,6 +280,7 @@ export default function App(){
               key={`watchedmovie${i}`} 
               ownRating={ratedMovies} 
               movie={movie}
+              onWatchedMovies={handelDeleteOnWatchedMovies}
               />)
             }
           </MovieBox>

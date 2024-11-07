@@ -50,7 +50,7 @@ export function MovieItem({movie,onMovieID}){
     )
 }
 
-export function WatchedMovieItem({movie,ownRating}){
+export function WatchedMovieItem({movie,ownRating,onWatchedMovies}){
     return (
         <li className='flex flex-center-y' style={{gap:'2.4rem'}}>
             <img src={movie.Poster} className="img-sm" alt={movie.Title} />
@@ -59,13 +59,13 @@ export function WatchedMovieItem({movie,ownRating}){
                 <div className='data flex flex-center-y flex-between '>
 
                     <div className="flex flex-center-y flex-1">
-                        <div className='flex flex-center-y text-rate flex-1'>
+                        <div className='flex flex-center-y text-rate'>
                             <span>⭐️</span>
                             <span >{movie.imdbRating}</span>
                         </div>
 
                         { ownRating &&
-                        <div className='flex flex-center-y text-rate flex-1'>
+                        <div className='flex flex-center-y text-rate'>
                             <span>🌟</span>
                             <span >
                                 {ownRating.has(movie.imdbID) ? ownRating.get(movie.imdbID) : 0}
@@ -78,7 +78,7 @@ export function WatchedMovieItem({movie,ownRating}){
                         </div>
                     </div>
 
-                    <DeleteBtn/>
+                    <DeleteBtn onWatchedMovies={onWatchedMovies} id={movie.imdbID}/>
                 </div>
             </div>
         </li>
@@ -129,6 +129,13 @@ export function SummaryWachedMoviesList(){
     )
 }
 
-function DeleteBtn(){
-    return <button className="delete-btn"><span>x</span></button>
+function DeleteBtn({id,onWatchedMovies}){
+    return (
+    <button 
+    className="delete-btn"
+    onClick={() => onWatchedMovies(id)}
+    >
+        <span>x</span>
+    </button>
+    )
 }
