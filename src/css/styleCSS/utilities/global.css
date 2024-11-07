@@ -15,12 +15,19 @@
 .mt-16{margin-top: 16px;}
 .mt-20{margin-top: 20px;}
 .mt-24{margin-top: 24px;}
+.mt-48{margin-top: 48px;}
 
 .mx-auto{margin-inline: auto;}
 
 .mb-16{margin-bottom: 16px;}
 .mb-20{margin-bottom: 20px;}
 .mb-24{margin-bottom: 24px;}
+
+.mt-48{margin-top: 48px;}
+
+.text-center{
+    text-align: center;
+}
 
 
 .btn{

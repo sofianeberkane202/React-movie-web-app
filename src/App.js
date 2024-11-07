@@ -11,6 +11,8 @@ import { MovieDetails,Details,MainMovieDetails,
   MovieStory,Poster,MainMovieInfo,Btn,StarRatingBox } from "./components/MovieDetails";
 
 import StarRating from "./components/StarRating";
+import Loading from "./components/Loading";
+import Error from "./components/Error";
 
 const tempMovieData = [
   {
@@ -113,6 +115,16 @@ export default function App(){
 
   const [ratedMovies,setRatedMovies] = useState(new Map());
 
+  // handel errors
+  const [isLoading1,setIsloading1]=useState(false); 
+  const [isLoading2,setIsloading2]=useState(false); 
+  const [error1,setError1] = useState('');
+  const [error2, setError2] = useState('');
+
+  console.log('movies: ',movies);
+  console.log('movieDetails: ',movieDetails);
+  console.log('---------------------------------')
+
   
   function handelRatedMovies(){
     setRatedMovies(prevData => {
@@ -151,15 +163,21 @@ export default function App(){
     async function fetchingData(){
       try {
         if(query.length < 3) return;
-
+        setIsloading1(true);
         const URL = URLBySearch + query;
         const data = await fetchData(URL);
+
+        setError1('');
         
 
         setMovies(data.Search);
+
+        
       } catch (error) {
+        setMovies([]);
         console.error(error.message);
-      }
+        setError1(`${error.message}`);
+      }finally{setIsloading1(false);}
     }
     fetchingData();
   },[query]);
@@ -172,7 +190,7 @@ export default function App(){
     async function fetchMovieData(){
       try {
         if(!movieID) return;
-
+        setIsloading2(true)
         const url = URLByID + movieID;
         const data = await fetchData(url);
         
@@ -180,8 +198,11 @@ export default function App(){
         if(ratedMovies.has(movieID)) setRate(ratedMovies.get(movieID))
         else setRate(0);
       } catch (error) {
-        console.error(error);
-      }
+        setMovieDetails([]);
+        setError2(error.message)
+        console.error(error.message);
+        
+      }finally{setIsloading2(false)}
     }
 
     fetchMovieData();
@@ -261,126 +282,149 @@ export default function App(){
 
       <Box>
 
-          <PaginationControler isOpen={isOpen1} onIsOpen={setIsOpen1}/>
+          { isLoading1 ?
+          <Loading/>
+          :
+            !error1 ?
+            <>
+            <PaginationControler isOpen={isOpen1} onIsOpen={setIsOpen1}/>
+            <MovieBox>
 
-          <MovieBox>
+              { isOpen1 &&
+                movies.map((movie,i) => 
+                <MovieItem 
+                key={`movie${i}`} 
+                movie={movie}
+                onMovieID={setMovieID}
+                />)
+              }
 
-            { isOpen1 &&
-              movies.map((movie,i) => 
-              <MovieItem 
-              key={`movie${i}`} 
-              movie={movie}
-              onMovieID={setMovieID}
-              />)
-            }
-
-          </MovieBox>
+            </MovieBox>
+            
+          </> 
+          :
+          <Error errorMassage={error1}/>
+          }
+          
    
       </Box>
 
       <Box>
-
-      <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
-
-      { movieDetails.length === 0 ?        
-        <>
-          <SummaryWachedMoviesList
-          imdbRatingAvrage={imdbRatingAVG}
-          myRatingAvrage={myRatedAVG}
-          timeAVG={averageTime}
-          />
-
-          <MovieBox> 
-
-            { isOpen2 && watched.size > 0 &&
-              Array.from(watched.values()).map((movie,i) => 
-              <WatchedMovieItem 
-              key={`watchedmovie${i}`} 
-              ownRating={ratedMovies} 
-              movie={movie}
-              onWatchedMovies={handelDeleteOnWatchedMovies}
-              />)
-            }
-          </MovieBox>
-        </>
-
+         
+      { isLoading2 ?
+        <Loading/>
         :
-          
-          isOpen2 &&
-          <MovieDetails >
+          !error2 ? 
+            <>
+                <PaginationControler isOpen={isOpen2} onIsOpen={setIsOpen2}/>
 
-            <MainMovieDetails>
-
-              <Poster poster={movieDetails.Poster} alt={movieDetails.Title}/>
-
-              <MainMovieInfo 
-              Released={movieDetails.Released}
-              Title={movieDetails.Title}
-              imdbRating={movieDetails.imdbRating}
-              key={movieDetails.Title}
-              />
-
-            </MainMovieDetails>
-
-            <Details>
-              <StarRatingBox>
-                { !watched.has(movieID) ?
+              {movieDetails.length === 0 ?        
                 <>
-                    <StarRating
-                    maxRate={10}
-                    size={22}
-                    color='#fcc419'
-                    starClassName=''
-                    boxClassName=''
-                
-                    textClassName='text text-btn'
+                  <SummaryWachedMoviesList
+                  imdbRatingAvrage={imdbRatingAVG}
+                  myRatingAvrage={myRatedAVG}
+                  timeAVG={averageTime}
+                  />
 
-                    onRate={setRate}
-                    rate={rate}
+                  <MovieBox> 
 
-                    key={movieID}
-                    />
-
-                    { ratedMovies.has(movieID) &&
-                    <Btn 
-                    className='btn btn-primary text-btn' 
-                    text='+Add to List'
-                    onSaved={setIsSaved}
-                    />}
+                    { isOpen2 && watched.size > 0 &&
+                      Array.from(watched.values()).map((movie,i) => 
+                      <WatchedMovieItem 
+                      key={`watchedmovie${i}`} 
+                      ownRating={ratedMovies} 
+                      movie={movie}
+                      onWatchedMovies={handelDeleteOnWatchedMovies}
+                      />)
+                    }
+                  </MovieBox>
                 </>
 
                 :
+                  
+                  isOpen2 &&
+                  <MovieDetails >
 
-                <p className="text-btn">
-                  You have rated the movie {ratedMovies.get(movieID)} ⭐️
-                </p>
-                }
+                    <MainMovieDetails>
 
-              </StarRatingBox>
-              
-              <MovieStory Plot={movieDetails.Plot}/>
+                      <Poster poster={movieDetails.Poster} alt={movieDetails.Title}/>
 
-              {ratedMovies.has(movieID) &&
-              <Btn 
-              className='btn btn-primary text-btn'
-              text='Details'/>}
-            </Details>
+                      <MainMovieInfo 
+                      Released={movieDetails.Released}
+                      Title={movieDetails.Title}
+                      imdbRating={movieDetails.imdbRating}
+                      key={movieDetails.Title}
+                      />
 
-            <Btn 
-            className='return-btn'
-            onMovieID={setMovieID}
-            onMovieDetails={setMovieDetails}
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg"
-                height="32px" viewBox="0 -960 960 960"
-                width="32px" fill="#000">
-                <path d="m480-320 56-56-64-64h168v-80H472l64-64-56-56-160 160 160 160Zm0 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-            </Btn>
+                    </MainMovieDetails>
 
-          </MovieDetails>
+                    <Details>
+                      <StarRatingBox>
+                        { !watched.has(movieID) ?
+                        <>
+                            <StarRating
+                            maxRate={10}
+                            size={22}
+                            color='#fcc419'
+                            starClassName=''
+                            boxClassName=''
+                        
+                            textClassName='text text-btn'
+
+                            onRate={setRate}
+                            rate={rate}
+
+                            key={movieID}
+                            />
+
+                            { ratedMovies.has(movieID) &&
+                            <Btn 
+                            className='btn btn-primary text-btn' 
+                            text='+Add to List'
+                            onSaved={setIsSaved}
+                            />}
+                        </>
+
+                        :
+
+                        <p className="text-btn">
+                          You have rated the movie {ratedMovies.get(movieID)} ⭐️
+                        </p>
+                        }
+
+                      </StarRatingBox>
+                      
+                      <MovieStory Plot={movieDetails.Plot}/>
+
+                      {ratedMovies.has(movieID) &&
+                      <Btn 
+                      className='btn btn-primary text-btn'
+                      text='Details'/>}
+                    </Details>
+
+                    <Btn 
+                    className='return-btn'
+                    onMovieID={setMovieID}
+                    onMovieDetails={setMovieDetails}
+                    >
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="32px" viewBox="0 -960 960 960"
+                        width="32px" fill="#000">
+                        <path d="m480-320 56-56-64-64h168v-80H472l64-64-56-56-160 160 160 160Zm0 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                    </Btn>
+
+                  </MovieDetails>}
+            </>
+
+            :
+
+            <Error errorMassage={error2}/>
           
+           
         }
+
+      
 
         
       </Box>
