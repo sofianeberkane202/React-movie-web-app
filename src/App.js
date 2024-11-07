@@ -162,7 +162,6 @@ export default function App(){
   useEffect(function(){
     async function fetchingData(){
       try {
-        if(query.length < 3) return;
         setIsloading1(true);
         const URL = URLBySearch + query;
         const data = await fetchData(URL);
@@ -178,6 +177,12 @@ export default function App(){
         console.error(error.message);
         setError1(`${error.message}`);
       }finally{setIsloading1(false);}
+
+      if(query.length < 3){
+        setMovies([]);
+        setIsloading1(false);
+        setError1('');
+      }
     }
     fetchingData();
   },[query]);
