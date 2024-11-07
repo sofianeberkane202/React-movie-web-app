@@ -96,7 +96,7 @@ export function PaginationControler({isOpen,onIsOpen}){
     )
 }
 
-export function SummaryWachedMoviesList(){
+export function SummaryWachedMoviesList({myRatingAvrage, imdbRatingAvrage,timeAVG}){
     return (
         <div className='stats flex flex-col flex-center-x'>
             <h3>movies you watched</h3>
@@ -111,17 +111,17 @@ export function SummaryWachedMoviesList(){
 
                 <div className='flex flex-center-y'>
                     <span>⭐️</span>
-                    <span className='text-rate'>8.70</span>
+                    <span className='text-rate'>{imdbRatingAvrage}</span>
                 </div>
 
                 <div className='flex flex-center-y'>
                     <span>🌟</span>
-                    <span className='text-rate'>7.00</span>
+                    <span className='text-rate'>{myRatingAvrage}</span>
                 </div>
 
                 <div className='flex flex-center-y'>
                     <span>⏳</span>
-                    <span className='text-rate'>142 min</span>
+                    <span className='text-rate'>{timeAVG} min</span>
                 </div>
                             
             </div> 

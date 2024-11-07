@@ -225,12 +225,26 @@ export default function App(){
       newList.delete(id);
 
 
-      localStorage.setItem('wachedMovies', JSON.stringify(Array.from(newList.entries())));
+      localStorage.setItem('watchedMovies', JSON.stringify(Array.from(newList.entries())));
 
       return newList;
     })
 
   }
+
+  // --------------------------------
+
+  function calcAvrage(list){
+    if(list.length === 0) return 0;
+    return Number(list.reduce((acc,rate) => acc + rate ) / list.length).toFixed(1);
+  }
+
+  const myRatedAVG = calcAvrage(Array.from(ratedMovies.values())) ;
+
+  const imdbRatingAVG = calcAvrage(Array.from(watched.values()).map(movie => +movie.imdbRating));
+
+  const timeArr = Array.from(watched.values()).filter(movie => parseFloat(movie.Runtime))
+  const averageTime = calcAvrage(timeArr.map(movie => parseFloat(movie.Runtime)));
   
 
   return (
@@ -270,7 +284,11 @@ export default function App(){
 
       { movieDetails.length === 0 ?        
         <>
-          <SummaryWachedMoviesList/>
+          <SummaryWachedMoviesList
+          imdbRatingAvrage={imdbRatingAVG}
+          myRatingAvrage={myRatedAVG}
+          timeAVG={averageTime}
+          />
 
           <MovieBox> 
 
@@ -323,11 +341,12 @@ export default function App(){
                     key={movieID}
                     />
 
+                    { ratedMovies.has(movieID) &&
                     <Btn 
                     className='btn btn-primary text-btn' 
                     text='+Add to List'
                     onSaved={setIsSaved}
-                    />
+                    />}
                 </>
 
                 :
@@ -341,9 +360,10 @@ export default function App(){
               
               <MovieStory Plot={movieDetails.Plot}/>
 
+              {ratedMovies.has(movieID) &&
               <Btn 
               className='btn btn-primary text-btn'
-              text='Details'/>
+              text='Details'/>}
             </Details>
 
             <Btn 
